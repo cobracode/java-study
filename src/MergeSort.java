@@ -4,7 +4,13 @@
 public class MergeSort implements Sort {
     @Override
     public void sort(final int[] numbers) {
+        // TODO
+    }
 
+    @Override
+    public int run(int[] items, Object... args) {
+        sort(items);
+        return 0;
     }
 
     @Override

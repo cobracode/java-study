@@ -25,6 +25,12 @@ public class BubbleSort implements Sort {
 
 
     @Override
+    public int run(int[] items, Object... args) {
+        sort(items);
+        return 0;
+    }
+
+    @Override
     public String getName() {
         return "Bubble Sort";
     }
