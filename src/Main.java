@@ -8,32 +8,59 @@ import java.util.Random;
  */
 public class Main {
     private static final List<int[]> inputList = new ArrayList<int[]>();
-    private static final List<Algorithm> algorithms = new ArrayList<Algorithm>();
+    private static final List<Sort> sorts = new ArrayList<Sort>();
+    private static final List<Search> searches = new ArrayList<Search>();
 
 
     public static final void main(final String[] args) {
         loadInput();
-        loadAlgorithms();
-        runAlgorithms();
 
-        runSorts();
+//        loadSorts();
+//        runSorts();
+
+        loadSearches();
+        runSearches();
     }
 
-    private static void runSorts() {
-        final Search linear = new LinearSearch();
-
-        final int[] items = {0, 3, 88, 1, -1, 82, 34};
-
-        final int result = linear.search(items, 82);
-        p("result: " + result);
+    private static void loadSearches() {
+        searches.add(new LinearSearch());
+        searches.add(new BinarySearch());
     }
 
-    private static void runAlgorithms() {
+    private static void runSearches() {
         long startTime = 0;
         long sortStartTime = 0;
 
-        for (final Algorithm algorithm : algorithms) {
-            p("Running " + algorithm.getName() + "; " + algorithm.getStats() + "\n");
+        for (final Search search : searches) {
+            p("Running " + search.getName() + "; " + search.getStats() + "\n");
+
+            sortStartTime = System.currentTimeMillis();
+
+            for (final int[] input : inputList) {
+                // Copy input to not ruin it for next sorts
+                final int[] inputCopy = Arrays.copyOf(input, input.length);
+
+                p("Searching " + input.length + " items");
+                p("Starting array: " + Arrays.toString(inputCopy));
+
+                startTime = System.currentTimeMillis();
+
+                final int resultIndex = search.search(inputCopy, 3);
+
+                displayResults(startTime, System.currentTimeMillis(), resultIndex);
+            }
+
+            p("\nTOTAL TIME in " +
+                    search.getName() + ": " + (System.currentTimeMillis() - sortStartTime) + " millis\n\n");
+        }
+    }
+
+    private static void runSorts() {
+        long startTime = 0;
+        long sortStartTime = 0;
+
+        for (final Sort sort : sorts) {
+            p("Running " + sort.getName() + "; " + sort.getStats() + "\n");
 
             sortStartTime = System.currentTimeMillis();
 
@@ -46,13 +73,13 @@ public class Main {
 
                 startTime = System.currentTimeMillis();
 
-                algorithm.run(inputCopy);
+                sort.sort(inputCopy);
 
                 displayResults(startTime, System.currentTimeMillis(), inputCopy);
             }
 
             p("\nTOTAL TIME in " +
-                    algorithm.getName() + ": " + (System.currentTimeMillis() - sortStartTime) + " millis\n\n");
+                    sort.getName() + ": " + (System.currentTimeMillis() - sortStartTime) + " millis\n\n");
         }
     }
 
@@ -60,15 +87,10 @@ public class Main {
         System.out.println(s);
     }
 
-    private static void loadAlgorithms() {
-        //loadSorts();
-
-        //algorithms.add(new Reverse());
-    }
-
     private static void loadSorts() {
-        algorithms.add(new BubbleSort());
-        algorithms.add(new MergeSort());
+        sorts.add(new BubbleSort());
+        sorts.add(new MergeSort());
+        sorts.add(new Reverse());
     }
 
     private static void loadInput() {
@@ -89,7 +111,12 @@ public class Main {
 
     private static void displayResults(final long startTime, final long endTime, final int[] list) {
         p("Resulting array: " + Arrays.toString(list));
-        p("Time: " + (endTime - startTime) + " milliseconds");
+        p("Time: " + (endTime - startTime) + " milliseconds\n\n");
+    }
+
+    private static void displayResults(final long startTime, final long endTime, final int resultIndex) {
+        p("Resulting array: " + resultIndex);
+        p("Time: " + (endTime - startTime) + " milliseconds\n\n");
     }
 
     private static int[] getRandomList(final int numItems) {

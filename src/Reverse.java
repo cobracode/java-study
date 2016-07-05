@@ -1,7 +1,7 @@
 /**
  * Created by ned on 7/1/16.
  */
-public class Reverse implements Algorithm {
+public class Reverse implements Sort {
     private void swap(final int[] items, final int i, final int n) {
         final int tmp = items[i];
         items[i] = items[n];
@@ -9,7 +9,7 @@ public class Reverse implements Algorithm {
     }
 
     @Override
-    public int run(int[] items, Object... args) {
+    public void sort(int[] items) {
         final int last = items.length - 1;
         final int mid = last / 2;
 
@@ -19,8 +19,6 @@ public class Reverse implements Algorithm {
                 swap(items, i, n);
             }
         }
-
-        return 0;
     }
 
     @Override
