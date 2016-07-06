@@ -5,4 +5,6 @@ interface Algorithm {
     public String getName();
 
     public String getStats();
+
+    public int getLastCount();
 }

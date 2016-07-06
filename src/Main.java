@@ -15,8 +15,8 @@ public class Main {
     public static final void main(final String[] args) {
         loadInput();
 
-//        loadSorts();
-//        runSorts();
+        loadSorts();
+        runSorts();
 
         loadSearches();
         runSearches();
@@ -27,42 +27,38 @@ public class Main {
         searches.add(new BinarySearch());
     }
 
+    private static void loadSorts() {
+        sorts.add(new BubbleSort());
+        //sorts.add(new MergeSort());
+        sorts.add(new Reverse());
+    }
+
     private static void runSearches() {
-        long startTime = 0;
-        long sortStartTime = 0;
+        final BubbleSort bs = new BubbleSort();
 
         for (final Search search : searches) {
             p("Running " + search.getName() + "; " + search.getStats() + "\n");
 
-            sortStartTime = System.currentTimeMillis();
-
             for (final int[] input : inputList) {
                 // Copy input to not ruin it for next sorts
-                final int[] inputCopy = Arrays.copyOf(input, input.length);
+                final int[] sortedList = Arrays.copyOf(input, input.length);
+                bs.sort(sortedList);
+                final int value = 3;
 
-                p("Searching " + input.length + " items");
-                p("Starting array: " + Arrays.toString(inputCopy));
+                p("Searching " + input.length + " items for " + value);
+                p("Starting array: " + Arrays.toString(sortedList));
 
-                startTime = System.currentTimeMillis();
+                final int resultIndex = search.search(sortedList, value);
 
-                final int resultIndex = search.search(inputCopy, 3);
-
-                displayResults(startTime, System.currentTimeMillis(), resultIndex);
+                p("Index: " + resultIndex);
+                p("Took " + search.getLastCount() + " operations\n\n");
             }
-
-            p("\nTOTAL TIME in " +
-                    search.getName() + ": " + (System.currentTimeMillis() - sortStartTime) + " millis\n\n");
         }
     }
 
     private static void runSorts() {
-        long startTime = 0;
-        long sortStartTime = 0;
-
         for (final Sort sort : sorts) {
             p("Running " + sort.getName() + "; " + sort.getStats() + "\n");
-
-            sortStartTime = System.currentTimeMillis();
 
             for (final int[] input : inputList) {
                 // Copy input to not ruin it for next sorts
@@ -71,15 +67,8 @@ public class Main {
                 p("Acting on " + input.length + " items");
                 p("Starting array: " + Arrays.toString(inputCopy));
 
-                startTime = System.currentTimeMillis();
-
                 sort.sort(inputCopy);
-
-                displayResults(startTime, System.currentTimeMillis(), inputCopy);
             }
-
-            p("\nTOTAL TIME in " +
-                    sort.getName() + ": " + (System.currentTimeMillis() - sortStartTime) + " millis\n\n");
         }
     }
 
@@ -87,11 +76,7 @@ public class Main {
         System.out.println(s);
     }
 
-    private static void loadSorts() {
-        sorts.add(new BubbleSort());
-        sorts.add(new MergeSort());
-        sorts.add(new Reverse());
-    }
+
 
     private static void loadInput() {
         inputList.clear();
@@ -107,16 +92,6 @@ public class Main {
         inputList.add(getRandomList(100));
         inputList.add(getRandomList(1000));
         inputList.add(getRandomList(5000));
-    }
-
-    private static void displayResults(final long startTime, final long endTime, final int[] list) {
-        p("Resulting array: " + Arrays.toString(list));
-        p("Time: " + (endTime - startTime) + " milliseconds\n\n");
-    }
-
-    private static void displayResults(final long startTime, final long endTime, final int resultIndex) {
-        p("Resulting array: " + resultIndex);
-        p("Time: " + (endTime - startTime) + " milliseconds\n\n");
     }
 
     private static int[] getRandomList(final int numItems) {

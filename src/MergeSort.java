@@ -17,6 +17,11 @@ public class MergeSort implements Sort {
         return "O(n) best; O(n log n) worst; O(n log n) avg; SPACE: O(n)";
     }
 
+    @Override
+    public int getLastCount() {
+        return 0;
+    }
+
 
     private void divideArray() {
 
