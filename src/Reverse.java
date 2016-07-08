@@ -13,6 +13,22 @@ public class Reverse implements Sort {
     @Override
     public void sort(int[] items) {
         final int last = items.length - 1;
+
+        count = 0;
+
+        if (0 < last) {
+            final int mid = last / 2;
+
+            for (int x = 0; x <= mid; x++) {
+                count++;
+
+                swap(items, x, last - x);
+            }
+        }
+    }
+
+    public void sort2(int[] items) {
+        final int last = items.length - 1;
         final int mid = last / 2;
 
         count = 0;

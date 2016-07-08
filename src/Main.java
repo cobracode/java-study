@@ -18,8 +18,8 @@ public class Main {
         loadSorts();
         runSorts();
 
-        loadSearches();
-        runSearches();
+//        loadSearches();
+//        runSearches();
     }
 
     private static void loadSearches() {
@@ -31,6 +31,7 @@ public class Main {
         sorts.add(new BubbleSort());
         //sorts.add(new MergeSort());
         sorts.add(new Reverse());
+        sorts.add(new SelectionSort());
     }
 
     private static void runSearches() {
@@ -57,18 +58,33 @@ public class Main {
     }
 
     private static void runSorts() {
+        int countSum = 0;
+        int nSum = 0;
+
         for (final Sort sort : sorts) {
+            countSum = 0;
+            nSum = 0;
+
             p("Running " + sort.getName() + "; " + sort.getStats() + "\n");
 
             for (final int[] input : inputList) {
                 // Copy input to not ruin it for next sorts
                 final int[] inputCopy = Arrays.copyOf(input, input.length);
+                nSum += inputCopy.length;
 
                 p("Acting on " + input.length + " items");
                 p("Starting array: " + Arrays.toString(inputCopy));
 
                 sort.sort(inputCopy);
+
+                p("End array: " + Arrays.toString(inputCopy) + "\n");
+                p("Took " + sort.getLastCount() + " operations\n\n");
+
+                countSum += sort.getLastCount();
             }
+
+            final double ratio = (double)countSum / (double)nSum;
+            p(sort.getName() + " TOTAL OPERATIONS: " + countSum + " -  TOTAL N: " + nSum + "  -- RATIO: " + ratio + "\n\n\n");
         }
     }
 
