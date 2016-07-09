@@ -13,10 +13,34 @@ public class Main {
 
 
     public static final void main(final String[] args) {
-        loadInput();
+        LinkedList<String> list = new LinkedList<String>();
 
-        loadSorts();
-        runSorts();
+        list.add("ned");
+        p(list.toString() + "\n");
+
+        list.add("tom");
+        p(list.toString() + "\n");
+
+        list.add("sabrina");
+        p(list.toString() + "\n");
+
+        list.remove("ned");
+        p(list.toString() + "\n");
+
+        list.remove("ned");
+        p(list.toString() + "\n");
+
+        list.remove("ned");
+        p(list.toString() + "\n");
+
+        list.remove("ned");
+        p(list.toString() + "\n");
+
+
+//        loadInput();
+//
+//        loadSorts();
+//        runSorts();
 
 //        loadSearches();
 //        runSearches();
