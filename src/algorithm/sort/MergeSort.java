@@ -1,3 +1,7 @@
+package algorithm.sort;
+
+import algorithm.sort.Sort;
+
 /**
  * Created by ned on 6/27/16.
  */
@@ -9,7 +13,7 @@ public class MergeSort implements Sort {
 
     @Override
     public String getName() {
-        return "Merge Sort";
+        return "Merge algorithm.sort.Sort";
     }
 
     @Override

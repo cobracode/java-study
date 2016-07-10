@@ -1,9 +1,11 @@
+package algorithm.data.structures;
+
 import java.util.List;
 
 /**
  * Created by ned on 7/8/16.
  */
-class LinkedList<T> {
+public class LinkedList<T> {
     // what does it do?
     // - has items
     //      - list of nodes
@@ -30,11 +32,11 @@ class LinkedList<T> {
         }
     }
 
-    LinkedList() {
-        p("Creating LinkedList");
+    public LinkedList() {
+        p("Creating algorithm.data.structures.LinkedList");
     }
 
-    void add(final T item) {
+    public void add(final T item) {
         final Node<T> node = new Node<T>(item);
 
         if (null == head) {
@@ -49,7 +51,7 @@ class LinkedList<T> {
         }
     }
 
-    void remove(final T item) {
+    public void remove(final T item) {
         p("Removing " + item);
 
         if (null == head) {
@@ -135,7 +137,7 @@ class LinkedList<T> {
 
     @Override
     public String toString() {
-        String string = "LinkedList: [";
+        String string = "algorithm.data.structures.LinkedList: [";
 
         if (null != head) {
             Node current = head;

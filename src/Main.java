@@ -1,3 +1,13 @@
+import algorithm.CheckUniqueStringChars;
+import algorithm.data.structures.LinkedList;
+import algorithm.search.BinarySearch;
+import algorithm.search.LinearSearch;
+import algorithm.search.Search;
+import algorithm.sort.BubbleSort;
+import algorithm.sort.Reverse;
+import algorithm.sort.SelectionSort;
+import algorithm.sort.Sort;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,6 +23,30 @@ public class Main {
 
 
     public static final void main(final String[] args) {
+        testUniqueStringChars();
+
+
+//        loadInput();
+//
+//        loadSorts();
+//        runSorts();
+
+//        loadSearches();
+//        runSearches();
+    }
+
+    private static void testUniqueStringChars() {
+        CheckUniqueStringChars c = new CheckUniqueStringChars();
+
+        p("Checking \"\": " + c.check(""));
+        p("Checking \"a\": " + c.check("a"));
+        p("Checking \"aa\": " + c.check("aa"));
+        p("Checking \"ab\": " + c.check("ab"));
+        p("Checking \"ned\": " + c.check("ned"));
+        p("Checking \"nedn\": " + c.check("nedn"));
+    }
+
+    private static void testLinkedList() {
         LinkedList<String> list = new LinkedList<String>();
 
         list.add("ned");
@@ -35,15 +69,6 @@ public class Main {
 
         list.remove("ned");
         p(list.toString() + "\n");
-
-
-//        loadInput();
-//
-//        loadSorts();
-//        runSorts();
-
-//        loadSearches();
-//        runSearches();
     }
 
     private static void loadSearches() {

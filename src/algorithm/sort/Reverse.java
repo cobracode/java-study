@@ -1,3 +1,5 @@
+package algorithm.sort;
+
 /**
  * Created by ned on 7/1/16.
  */
@@ -44,7 +46,7 @@ public class Reverse implements Sort {
 
     @Override
     public String getName() {
-        return "Reverse";
+        return "algorithm.sort.Reverse";
     }
 
     @Override

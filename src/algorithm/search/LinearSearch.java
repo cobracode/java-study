@@ -1,7 +1,9 @@
+package algorithm.search;
+
 /**
  * Created by ned on 7/4/16.
  */
-class LinearSearch implements Search {
+public class LinearSearch implements Search {
     private int count = 0;
     @Override
     public int search(final int[] items, final  int value) {

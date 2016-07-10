@@ -1,7 +1,9 @@
+package algorithm.search;
+
 /**
  * Created by ned on 7/4/16.
  */
-class BinarySearch implements Search {
+public class BinarySearch implements Search {
     private int count = 0;
 
     @Override

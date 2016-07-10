@@ -1,3 +1,7 @@
+package algorithm.sort;
+
+import algorithm.sort.Sort;
+
 /**
  * Created by ned on 7/7/16.
  */
@@ -37,7 +41,7 @@ public class SelectionSort implements Sort {
 
     @Override
     public String getName() {
-        return "Selection Sort";
+        return "Selection algorithm.sort.Sort";
     }
 
     @Override
