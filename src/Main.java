@@ -1,3 +1,4 @@
+import algorithm.CheckStringPermutation;
 import algorithm.CheckUniqueStringChars;
 import algorithm.data.structures.LinkedList;
 import algorithm.search.BinarySearch;
@@ -23,16 +24,31 @@ public class Main {
 
 
     public static final void main(final String[] args) {
-        testUniqueStringChars();
+        testStringPermutations();
 
 
 //        loadInput();
 //
-//        loadSorts();
+//        loadSorts();+
 //        runSorts();
 
 //        loadSearches();
 //        runSearches();
+    }
+
+    private static void testStringPermutations() {
+        CheckStringPermutation c = new CheckStringPermutation();
+
+        p("'' a permutation of '' ? " + c.check("", ""));
+        p("'a' a permutation of 'a' ? " + c.check("a", "a"));
+        p("'aa' a permutation of 'aa' ? " + c.check("aa", "aa"));
+        p("'ba' a permutation of 'ab' ? " + c.check("ba", "ab"));
+        p("'ba' a permutation of 'a' ? " + c.check("ba", "a"));
+        p("'a' a permutation of 'ba' ? " + c.check("a", "ba"));
+
+        p("'ned' a permutation of 'den' ? " + c.check("ned", "den"));
+        p("'match' a permutation of 'amtch' ? " + c.check("match", "amtch"));
+        p("'match' a permutation of 'fishmatch' ? " + c.check("match", "fishmatch"));
     }
 
     private static void testUniqueStringChars() {
