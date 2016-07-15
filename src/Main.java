@@ -24,7 +24,7 @@ public class Main {
 
 
     public static final void main(final String[] args) {
-        testStringPermutations();
+        testLinkedList();
 
 
 //        loadInput();
@@ -74,7 +74,7 @@ public class Main {
         list.add("sabrina");
         p(list.toString() + "\n");
 
-        list.remove("ned");
+        list.remove("ned2");
         p(list.toString() + "\n");
 
         list.remove("ned");
@@ -83,8 +83,14 @@ public class Main {
         list.remove("ned");
         p(list.toString() + "\n");
 
-        list.remove("ned");
+        list.remove("tom");
         p(list.toString() + "\n");
+
+        p("\nIs ned in list? " + list.contains("ned"));
+        p("\nIs ashley in list? " + list.contains("ashley"));
+        p("\nIs sabrina in list? " + list.contains("sabrina"));
+
+        p(list.toString());
     }
 
     private static void loadSearches() {

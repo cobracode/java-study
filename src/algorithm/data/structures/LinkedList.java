@@ -22,7 +22,6 @@ public class LinkedList<T> {
         public Node prev;
 
         public Node(final T item) {
-            p("Creating Node for " + item);
             this.item = item;
         }
 
@@ -33,18 +32,14 @@ public class LinkedList<T> {
     }
 
     public LinkedList() {
-        p("Creating algorithm.data.structures.LinkedList");
     }
 
     public void add(final T item) {
         final Node<T> node = new Node<T>(item);
 
         if (null == head) {
-            p("Adding " + item + " to head");
             head = node;
         } else {
-            p("Adding " + item + " to end");
-
             final Node last = getLastNode();
             last.next = node;
             node.prev = last;
@@ -52,11 +47,7 @@ public class LinkedList<T> {
     }
 
     public void remove(final T item) {
-        p("Removing " + item);
-
-        if (null == head) {
-            p("!! No items to remove");
-        } else {
+        if (null != head) {
             final Node itemNode = getItemNode(item);
 
             if (null == itemNode) {
@@ -83,49 +74,44 @@ public class LinkedList<T> {
         }
     }
 
+    public boolean contains(final T item) {
+        return null != getItemNode(item);
+    }
+
     private Node getLastNode() {
         Node last = null;
 
         if (null != head) {
-            Node current = head;
-            Node next = current.next;
+            last = head;
 
-            while (null != next) {
-                current = next;
-                next = current.next;
+            while (null != last.next) {
+                last = last.next;
             }
-
-            last = current;
         }
 
         return last;
     }
 
     private Node getItemNode(final T item) {
-        p("Getting item Node for: " + item);
         Node itemNode = null;
 
         // Traverse to find item
         if (null != head) {
             Node current = head;
-            Node next = current.next;
 
-            while (null != next && null == itemNode) {
-                // Check item
-                if (current.item == item) {
-                    p("Found item node");
+            // Check first
+            if (current.item.equals(item)) {
+                itemNode = current;
+            }
+
+            // If not in first, check rest
+            while (null != current.next && null == itemNode) {
+                if (current.item.equals(item)) {
                     itemNode = current;
-                } else {
-                    current = next;
-                    next = current.next;
                 }
-            }
 
-            if (null == itemNode) {
-                p("Did not find item in list");
+                current = current.next;
             }
-        } else {
-            p(item + " not in empty list");
         }
 
         return itemNode;
@@ -137,7 +123,7 @@ public class LinkedList<T> {
 
     @Override
     public String toString() {
-        String string = "algorithm.data.structures.LinkedList: [";
+        String string = "LinkedList: [";
 
         if (null != head) {
             Node current = head;
