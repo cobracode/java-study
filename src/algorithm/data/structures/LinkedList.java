@@ -15,6 +15,16 @@ public class LinkedList<T> {
     // - contains item
     private Node<T> head;
 
+    public T get(final T item) {
+        final Node itemNode = getItemNode(item);
+
+        if (null != itemNode) {
+            return (T)itemNode.item;
+        }
+
+        return null;
+    }
+
     private class Node<T> {
         // has item, next, prev
         public T item;
@@ -99,13 +109,7 @@ public class LinkedList<T> {
         if (null != head) {
             Node current = head;
 
-            // Check first
-            if (current.item.equals(item)) {
-                itemNode = current;
-            }
-
-            // If not in first, check rest
-            while (null != current.next && null == itemNode) {
+            while (null == itemNode && null != current) {
                 if (current.item.equals(item)) {
                     itemNode = current;
                 }

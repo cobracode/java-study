@@ -1,6 +1,7 @@
 import algorithm.CheckStringPermutation;
 import algorithm.CheckUniqueStringChars;
 import algorithm.data.structures.Hashtable;
+import algorithm.data.structures.HashtableSimple;
 import algorithm.data.structures.LinkedList;
 import algorithm.search.BinarySearch;
 import algorithm.search.LinearSearch;
@@ -30,7 +31,7 @@ public class Main {
 
 //        loadInput();
 //
-//        loadSorts();+
+//        loadSorts();
 //        runSorts();
 
 //        loadSearches();
@@ -40,17 +41,14 @@ public class Main {
     private static void testHashtable() {
         final Hashtable ht = new Hashtable();
 
-        ht.add("ned");
-        ht.add("mystery");
-        ht.add("rex");
-        ht.add("moe");
-        ht.add("ashley");
-        ht.add("nedster");
-        ht.add("plane");
 
-        for (int x = 0; x < 50; x++) {
-            ht.add(String.valueOf(x));
-        }
+        p("ned: " + ht.get("ned"));
+        ht.put("ned", "software guy");
+        p("ned: " + ht.get("ned"));
+        ht.put("frankie girl", "cat");
+        p("frankie: " + ht.get("frankie girl"));
+        ht.put("tim", "tool man");
+        p("tim: " + ht.get("tim"));
 
     }
 
