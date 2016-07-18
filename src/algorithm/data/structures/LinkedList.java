@@ -56,7 +56,9 @@ public class LinkedList<T> {
         }
     }
 
-    public void remove(final T item) {
+    public boolean remove(final T item) {
+        boolean removed = false;
+
         if (null != head) {
             final Node itemNode = getItemNode(item);
 
@@ -72,6 +74,8 @@ public class LinkedList<T> {
                     if (null != head) {
                         head.prev = null;
                     }
+
+                    removed = true;
                 } else {
                     p("Removing " + item + " from further in list");
                     itemNode.prev.next = itemNode.next;
@@ -79,9 +83,13 @@ public class LinkedList<T> {
                     if (null != itemNode.next) {
                         itemNode.next.prev = itemNode.prev;
                     }
+
+                    removed = true;
                 }
             }
         }
+
+        return removed;
     }
 
     public boolean contains(final T item) {

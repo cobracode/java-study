@@ -1,5 +1,6 @@
 import algorithm.CheckStringPermutation;
 import algorithm.CheckUniqueStringChars;
+import algorithm.data.structures.BinaryTree;
 import algorithm.data.structures.Hashtable;
 import algorithm.data.structures.HashtableSimple;
 import algorithm.data.structures.LinkedList;
@@ -26,7 +27,7 @@ public class Main {
 
 
     public static final void main(final String[] args) {
-        testHashtable();
+        testBinaryTree();
 
 
 //        loadInput();
@@ -38,6 +39,32 @@ public class Main {
 //        runSearches();
     }
 
+    private static void testBinaryTree() {
+        BinaryTree tree = new BinaryTree();
+
+        p(tree.toString());
+
+        tree.add(1);
+        tree.add(2);
+        tree.add(3);
+        tree.add(4);
+        tree.add(5);
+        tree.add(6);
+        tree.add(7);
+
+        p(tree.toString());
+
+        tree.print();
+
+        p("Contains 0? " + tree.contains(0));
+        p("Contains -4? " + tree.contains(-4));
+        p("Contains 3? " + tree.contains(3));
+        p("Contains 7? " + tree.contains(7));
+        p("Contains 10? " + tree.contains(10));
+
+        p("Removed 1 from tree? " + tree.remove(1));
+    }
+
     private static void testHashtable() {
         final Hashtable ht = new Hashtable();
 
@@ -45,11 +72,26 @@ public class Main {
         p("ned: " + ht.get("ned"));
         ht.put("ned", "software guy");
         p("ned: " + ht.get("ned"));
+
         ht.put("frankie girl", "cat");
         p("frankie: " + ht.get("frankie girl"));
+
         ht.put("tim", "tool man");
         p("tim: " + ht.get("tim"));
 
+        p("\n\n" + ht);
+
+        ht.remove("junka");
+        ht.remove("tim");
+        ht.remove("tim");
+
+        p("\n\n" + ht);
+
+        ht.remove("ned");
+        p("\n\n" + ht);
+
+        ht.remove("frankie girl");
+        p("\n\n" + ht);
     }
 
     private static void testStringPermutations() {

@@ -47,20 +47,25 @@ public class Hashtable implements Algorithm {
     public String get(final String key) {
         p("Getting key \"" + key + "\"");
 
-        final int index = getIndex(key);
+        final Entry entry = getEntry(key);
 
-        // Attempt to find key in list at index
-        final LinkedList<Entry> list = table[index];
-
-        if (null != list) {
-            final Entry entry = list.get(new Entry(key, ""));
-
-            if (null != entry) {
-                return (String)entry.getValue();
-            }
+        if (null != entry) {
+            return entry.getValue();
         }
 
         return null;
+    }
+
+    public boolean remove(final String key) {
+        boolean removed = false;
+
+        final LinkedList<Entry> list = getIndexList(key);
+
+        if (null != list) {
+            return list.remove(new Entry(key, ""));
+        }
+
+        return removed;
     }
 
 //    private void doubleTable() {
@@ -86,6 +91,20 @@ public class Hashtable implements Algorithm {
 
     private int getIndex(final String key) {
         return key.hashCode() % table.length;
+    }
+
+    private LinkedList<Entry> getIndexList(final String key) {
+        return table[getIndex(key)];
+    }
+
+    private Entry getEntry(final String key) {
+        final LinkedList<Entry> list = getIndexList(key);
+
+        if (null != list) {
+            return list.get(new Entry(key, ""));
+        }
+
+        return null;
     }
 
     @Override
@@ -141,5 +160,28 @@ public class Hashtable implements Algorithm {
         public String toString() {
             return key + ": " + value;
         }
+    }
+
+    @Override
+    public String toString() {
+        StringBuffer sb = new StringBuffer();
+
+        sb.append(TAG + "\n");
+
+        for (int x = 0; x < table.length; x++) {
+            final LinkedList<Entry> list = table[x];
+
+            sb.append(x + ": ");
+
+            if (null != list) {
+                sb.append(list);
+            } else {
+                sb.append(" -");
+            }
+
+            sb.append("\n");
+        }
+
+        return sb.toString();
     }
 }
