@@ -1,21 +1,18 @@
 import algorithm.CheckStringPermutation;
 import algorithm.CheckUniqueStringChars;
+import algorithm.MeetingPlanner;
 import algorithm.data.structures.BinaryTree;
 import algorithm.data.structures.Hashtable;
-import algorithm.data.structures.HashtableSimple;
 import algorithm.data.structures.LinkedList;
 import algorithm.search.BinarySearch;
 import algorithm.search.LinearSearch;
 import algorithm.search.Search;
-import algorithm.sort.BubbleSort;
-import algorithm.sort.Reverse;
-import algorithm.sort.SelectionSort;
-import algorithm.sort.Sort;
+import algorithm.sort.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
 
 /**
  * Created by ned on 6/26/16.
@@ -26,17 +23,34 @@ public class Main {
     private static final List<Search> searches = new ArrayList<Search>();
 
 
-    public static final void main(final String[] args) {
-        testBinaryTree();
+    public static final void main(final String[] args) throws ParseException {
+        //testMeetingPlanner();
+
+        //testBinaryTree();
 
 
-//        loadInput();
-//
-//        loadSorts();
-//        runSorts();
+        loadInput();
+
+        loadSorts();
+        runSorts();
 
 //        loadSearches();
 //        runSearches();
+    }
+
+    private static void testMeetingPlanner() throws ParseException {
+        MeetingPlanner mp = new MeetingPlanner();
+
+        final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        final Date jan1 = sdf.parse("2016-01-01 00:00:00");
+        final Date jan2 = sdf.parse("2016-01-02 00:00:00");
+
+        final int jan1Int = (int) jan1.getTime() / 1000;
+        final int jan2Int = (int) jan2.getTime() / 1000;
+
+        final int[][] A = { {jan1Int, jan2Int} };
+
+        mp.planMeeting(100, A, null);
     }
 
     private static void testBinaryTree() {
@@ -63,6 +77,19 @@ public class Main {
         p("Contains 10? " + tree.contains(10));
 
         p("Removed 1 from tree? " + tree.remove(1));
+
+        tree.print();
+
+        p(tree.toString());
+
+        p("Removed 1 from tree? " + tree.remove(1));
+
+        p("Removed 7 from tree? " + tree.remove(7));
+        p("Removed 3 from tree? " + tree.remove(3));
+        p("Removed 2 from tree? " + tree.remove(2));
+
+        tree.print();
+        p(tree.toString());
     }
 
     private static void testHashtable() {
@@ -157,10 +184,12 @@ public class Main {
     }
 
     private static void loadSorts() {
-        sorts.add(new BubbleSort());
-        //sorts.add(new MergeSort());
-        sorts.add(new Reverse());
-        sorts.add(new SelectionSort());
+        sorts.add(new InsertionSort());
+
+//        sorts.add(new BubbleSort());
+//        sorts.add(new MergeSort());
+//        sorts.add(new Reverse());
+//        sorts.add(new SelectionSort());
     }
 
     private static void runSearches() {

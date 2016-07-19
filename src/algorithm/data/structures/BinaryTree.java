@@ -28,7 +28,18 @@ public class BinaryTree {
             this.parent = parent;
         }
 
+        public Node getChild() {
+            return child;
+        }
 
+        @Override
+        public String toString() {
+            return "[ChildParentPair: parent: " + parent + "; child: " + child + "]";
+        }
+
+        public Node getParent() {
+            return parent;
+        }
     }
 
     private Node root;
@@ -75,10 +86,15 @@ public class BinaryTree {
         }
     }
 
-
     public boolean remove(final int value) {
         // Find node with value
-        return deleteNode(root, null, value);
+        final ChildParentPair nodeToDelete = get(root, null, value);
+
+        if (null != nodeToDelete) {
+            return deleteNode(nodeToDelete.child, nodeToDelete.parent, value);
+        }
+
+        return false;
     }
 
     public int size() {
@@ -98,6 +114,10 @@ public class BinaryTree {
     }
 
     private void deleteFromParent(final Node parent, final Node child, final Node grandChild) {
+        if (null == parent) {
+            return;
+        }
+
         // Grandchild is OK if it's null
         if (parent.left == child) {
             parent.left = grandChild;
@@ -106,21 +126,39 @@ public class BinaryTree {
         }
     }
 
-    private Node getRightmostChild(final Node current, Node parent) {
+    private ChildParentPair getRightmostChild(final Node current, final Node parent) {
         if (null == current) {
             return null;
         }
 
-        // Update parent
-        parent = current;
-
         // Get rightmost child of current; if null, return current
-        final Node rightmost = getRightmostChild(current.right, parent);
+        final ChildParentPair rightmost = getRightmostChild(current.right, current);
 
         if (null != rightmost) {
             return rightmost;
         } else {
-            return current;
+            return new ChildParentPair(current, parent);
+        }
+    }
+
+    private ChildParentPair get(final Node current, final Node parent, final int value) {
+        if (null == current) {
+            return null;
+        }
+
+        // Check current
+        if (current.data == value) {
+            p("Found value at Node: " + current + "; parent: " + parent);
+            return new ChildParentPair(current, parent);
+        } else {
+            // Check children: left to right
+            final ChildParentPair left = get(current.left, current, value);
+
+            if (null != left) {
+                return left;
+            } else {
+                return get(current.right, current, value);
+            }
         }
     }
 
@@ -154,14 +192,28 @@ public class BinaryTree {
 
                 return true;
             case 2:
-                Node rightmostParent = current;
-
                 // Delete current, making left-side right-most child new subtree root
-                final Node newRoot = getRightmostChild(current.left, rightmostParent);
+                final ChildParentPair newRoot = getRightmostChild(current.left, current);
+                final Node rightParent = newRoot.parent;
+                final Node rightChild = newRoot.child;
 
                 // Detach newRoot from its parent
-                p("Rightmost child: " + newRoot + "; parent: " + rightmostParent);
-                break;
+                p("Rightmost child: " + newRoot);
+                deleteFromParent(rightParent, rightChild, null);
+
+                // Attach current's children to newRoot
+                rightChild.right = current.right;
+                rightChild.left = current.left;
+
+                // Replace attachment from current's parent to newRoot
+                deleteFromParent(parent, current, rightChild);
+
+                // Update root
+                if (current == root) {
+                    root = rightChild;
+                }
+
+                return true;
             default:
                 break;
         }
